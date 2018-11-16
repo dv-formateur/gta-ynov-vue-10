@@ -1,6 +1,9 @@
 <template>
     <div>
         <nav-bar></nav-bar>
+        <side-bar></side-bar>
+
+
 
         <h1>Page salariée</h1>
         <h2>{{msg}}</h2>
@@ -9,10 +12,11 @@
 
 <script>
     import NavBar from '@/components/NavBar'
+    import SideBar from '@/components/SideBar'
 
     export default {
         components: {
-            NavBar
+            NavBar,SideBar
         },
         data () {
             return {
@@ -39,4 +43,6 @@
     a {
         color: #42b983;
     }
+
+
 </style>

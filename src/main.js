@@ -7,12 +7,15 @@ import Axios from 'axios'
 import NavBar from '@/components/NavBar'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
+import VueSidebarMenu from 'vue-sidebar-menu'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 Vue.prototype.$http = Axios;
 Vue.config.productionTip = false
 Vue.use(BootstrapVue);
+Vue.use(VueSidebarMenu);
+
 
 /* eslint-disable no-new */
 new Vue({

@@ -7,12 +7,9 @@
                 <form  class="form-signin" @submit.prevent="FormLogin">
                     <div class="form-label-group">
                       <input required id="inputEmail"v-model="username" type="text" placeholder="email"  class="form-control"/>
-                        <!--<label for="inputEmail">Email address</label>-->
-
                     </div>
                     <div class="form-label-group">
                         <input required id="inputPassword" v-model="password" type="password" placeholder="Password"  class="form-control"/>
-                        <!--<label for="inputPassword"> Passowrd</label>-->
                     </div>
 
 
@@ -35,7 +32,8 @@
                 FormLogin(e){
                     e.preventDefault()
                     if (this.password.length > 0) {
-                        this.$http.post('https://gta-ynov-vue-server.herokuapp.com/login', {
+                        // this.$http.post('https://gta-ynov-vue-server.herokuapp.com/login', {
+                            this.$http.post('http://localhost:3000/login',{
                             email: this.username,
                             password: this.password
                         })
@@ -43,7 +41,7 @@
                                 let role = response.data.user.role
                                 localStorage.setItem('user',JSON.stringify(response.data.user))
                                 localStorage.setItem('jwt',response.data.token)
-                                console.log(role)
+                                // console.log(role)
 
                                 if (localStorage.getItem('jwt') != null) {
                                     this.$emit('loggedIn')

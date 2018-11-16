@@ -5,6 +5,7 @@ import Login from '@/components/Login'
 import Register from '@/components/Register'
 import UserBoard from '@/components/UserBoard'
 import AdminBoard from '@/components/AdminBoard'
+import PageNotFound from '@/components/PageNotFound'
 
 Vue.use(Router)
 
@@ -32,7 +33,7 @@ let router = new Router({
           name: 'user',
           component: UserBoard,
           meta: {
-              requiresAuth: true,
+              requiresAuth: true
           }
       },
       {
@@ -41,24 +42,31 @@ let router = new Router({
           component: AdminBoard,
           meta: {
               requiresAuth: true,
-              role: 'R'||'D',
+              role: 'D',
+
+
           }
       },
+      { path: "*", component: PageNotFound,
+      meta: {
+          requireAuth:true
+      }}
 
   ]
 })
 router.beforeEach((to, from, next) => {
+
     if(to.matched.some(record => record.meta.requiresAuth)) {
         if (localStorage.getItem('jwt') == null) {
             next({
-                path: '/login',
+                name: 'login',
                 params: { nextUrl: to.fullPath }
             })
         } else {
             let user = JSON.parse(localStorage.getItem('user'))
-            if(to.matched.some(record =>  record.meta.is_admin)) {
-                if(user.role == 'R'||'D'){
-
+            if(to.meta.role != undefined) {
+                if(user.role === to.meta.role || user.role === 'R') {
+                    next()
                 }
                 else{
                     next({ name: 'user'})

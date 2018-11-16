@@ -7,10 +7,12 @@
 
 <script>
 import NavBar from '@/components/NavBar'
+import { SidebarMenu } from 'vue-sidebar-menu'
 
 export default {
     components: {
-        NavBar
+        NavBar,
+        SidebarMenu
     },
   name: 'App'
 

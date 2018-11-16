@@ -2,7 +2,9 @@
 <template>
 
     <div>
+
         <nav-bar></nav-bar>
+        <side-bar></side-bar>
         <h1>Page directeur</h1>
         <h2>{{msg}}</h2>
     </div>
@@ -10,6 +12,7 @@
 
 <script>
     import NavBar from '@/components/NavBar'
+    import SideBar from '@/components/SideBar'
 
     export default {
         data () {
@@ -18,7 +21,7 @@
             }
         },
         components: {
-            NavBar
+            NavBar,SideBar
         },
 
     }
