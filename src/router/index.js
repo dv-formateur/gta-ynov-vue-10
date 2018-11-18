@@ -6,6 +6,7 @@ import Register from '@/components/Register'
 import UserBoard from '@/components/UserBoard'
 import AdminBoard from '@/components/AdminBoard'
 import PageNotFound from '@/components/PageNotFound'
+import Profile from '@/components/Profile'
 
 Vue.use(Router)
 
@@ -32,10 +33,20 @@ let router = new Router({
           path: '/user',
           name: 'user',
           component: UserBoard,
+          children: [
+              {
+                  path:'profile',
+                  name:'profile',
+                  component: Profile
+              }
+          ],
           meta: {
               requiresAuth: true
           }
+
+
       },
+
       {
           path: '/admin',
           name: 'admin',

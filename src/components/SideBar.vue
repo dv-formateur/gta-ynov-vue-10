@@ -15,7 +15,15 @@
                         {
                             href: '/',
                             title: 'home',
-                        }
+                        },
+                        {
+                            href:'user/profile',
+                            title:'Profile',
+                        },
+                        {
+                            href:'',
+                            title:'Agenda',
+                        },
                     ]
                 }
             },
