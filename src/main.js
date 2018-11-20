@@ -9,13 +9,15 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import VueSidebarMenu from 'vue-sidebar-menu'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Datetime from 'vue-datetime'
+import 'vue-datetime/dist/vue-datetime.css'
 
 
 Vue.prototype.$http = Axios;
 Vue.config.productionTip = false
 Vue.use(BootstrapVue);
 Vue.use(VueSidebarMenu);
-
+Vue.use(Datetime)
 
 /* eslint-disable no-new */
 new Vue({

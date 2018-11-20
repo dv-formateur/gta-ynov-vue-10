@@ -7,6 +7,7 @@ import UserBoard from '@/components/UserBoard'
 import AdminBoard from '@/components/AdminBoard'
 import PageNotFound from '@/components/PageNotFound'
 import Profile from '@/components/Profile'
+import Agenda from '@/components/Agenda'
 
 Vue.use(Router)
 
@@ -38,6 +39,11 @@ let router = new Router({
                   path:'profile',
                   name:'profile',
                   component: Profile
+              },
+              {
+                  path:'agenda',
+                  name:'agenda',
+                  component: Agenda
               }
           ],
           meta: {

@@ -17,11 +17,11 @@
                             title: 'home',
                         },
                         {
-                            href:'user/profile',
+                            href:'/user/profile',
                             title:'Profile',
                         },
                         {
-                            href:'',
+                            href:'/user/agenda',
                             title:'Agenda',
                         },
                     ]

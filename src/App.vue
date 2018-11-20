@@ -8,11 +8,13 @@
 <script>
 import NavBar from '@/components/NavBar'
 import { SidebarMenu } from 'vue-sidebar-menu'
+import { Datetime } from 'vue-datetime';
 
 export default {
     components: {
         NavBar,
-        SidebarMenu
+        SidebarMenu,
+        Datetime,
     },
   name: 'App'
 
