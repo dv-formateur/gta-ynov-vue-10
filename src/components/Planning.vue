@@ -1,7 +1,14 @@
 <template>
     <div>
+        <button v-on:click="viewCalendarDay">ViewDay</button>
+        <button v-on:click="viewCalendarWeek">ViewWeek</button>
+        <button v-on:click="viewCalendarMonth">ViewMonth</button>
+        <button v-on:click="backCalendar">back</button>
+        <button v-on:click="nextCalendar">next</button>
 
-        <calendar style=" width:100%; height:800px; padding-left: 400px"
+
+
+        <calendar ref="calendar" style=" width:100%; height:800px; padding-left: 400px"
                   :calendars="calendarList"
                   :schedules="scheduleList"
                   :view="view"
@@ -34,16 +41,15 @@
         mounted() {
 
             let user = JSON.parse(localStorage.getItem('user'))
-            let  userId = user.id
+            let userId = user.id
             console.log('post')
-            this.$http.post('http://localhost:3000/agendaPlanning',{
+            this.$http.post('http://localhost:3000/agendaPlanning', {
                 userId: userId,
             })
                 .then(response => {
-                    localStorage.setItem('planning',JSON.stringify(response.data.planning))
+                    localStorage.setItem('planning', JSON.stringify(response.data.planning))
                     console.log(response.data.planning)
-                    response.data.planning.forEach(event=> {
-
+                    response.data.planning.forEach(event => {
                         let tempEvent = {
                             id: event.id,
                             calendarId: event.id,
@@ -55,10 +61,7 @@
                         }
                         this.scheduleList.push(tempEvent)
                     })
-                        // console.log(event)
-
-
-
+                    // console.log(event)
                 })
 
 
@@ -82,10 +85,10 @@
             //     console.log( this.scheduleList)
             //
             // }
-
         },
         data() {
             return {
+
                 calendarList: [
                     {
                         id: '0',
@@ -96,8 +99,7 @@
                         name: 'office'
                     }
                 ],
-                scheduleList: [
-                ],
+                scheduleList: [],
 
                 view: 'month',
 
@@ -117,7 +119,7 @@
                     timezonesCollapsed: false
                 },
                 month: {
-                    visibleWeeksCount: 6,
+                    visibleWeeksCount: 4,
                     startDayOfWeek: 1
                 },
                 timezones: [{
@@ -132,19 +134,42 @@
                 disableDblClick: true,
                 isReadOnly: true,
                 template: {
-                    milestone: function(schedule) {
+                    milestone: function (schedule) {
                         return `<span style="color:red;">${schedule.title}</span>`;
                     },
-                    milestoneTitle: function() {
+                    milestoneTitle: function () {
                         return 'MILESTONE';
                     },
                 },
                 useCreationPopup: true,
                 useDetailPopup: false,
             }
-        }
+        },
+        methods: {
+            nextCalendar: function () {
+                this.$refs.calendar.invoke('next');
+            },
+            backCalendar: function(){
+                this.$refs.calendar.invoke('prev');
+            },
+            viewCalendarDay: function(){
+                this.$refs.calendar.invoke('changeView','day','true')
+            },
+            viewCalendarWeek: function(){
+                this.$refs.calendar.invoke('changeView','week','true')
+            },
+            viewCalendarMonth: function(){
+                this.$refs.calendar.invoke('changeView','month','true')
+            }
 
+
+
+        }
     }
+
+
+
+
 </script>
 
 <style scoped>
