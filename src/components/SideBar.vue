@@ -28,6 +28,10 @@
                             href:'/user/planning',
                             title:'Planning',
                         },
+                        {
+                            href:'/admin/contrat',
+                            title:'Contrat',
+                        },
 
                     ]
                 }

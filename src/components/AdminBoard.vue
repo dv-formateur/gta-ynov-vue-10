@@ -5,8 +5,9 @@
 
         <nav-bar></nav-bar>
         <side-bar></side-bar>
-        <h1>Page directeur</h1>
-        <h2>{{msg}}</h2>
+        <router-view></router-view>
+
+
     </div>
 </template>
 

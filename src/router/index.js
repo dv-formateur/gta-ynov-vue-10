@@ -9,6 +9,7 @@ import PageNotFound from '@/components/PageNotFound'
 import Profile from '@/components/Profile'
 import Agenda from '@/components/Agenda'
 import Planning from '@/components/Planning'
+import Contrat from '@/components/Contrat'
 
 Vue.use(Router)
 
@@ -63,6 +64,19 @@ let router = new Router({
           path: '/admin',
           name: 'admin',
           component: AdminBoard,
+          children: [
+              {
+                  path:'contrat',
+                  name:'contrat',
+                  component: Contrat,
+                  meta: {
+                      requiresAuth: true,
+                      role: 'D',
+
+
+                  }
+              },
+            ],
           meta: {
               requiresAuth: true,
               role: 'D',
