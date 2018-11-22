@@ -11,6 +11,8 @@ import VueSidebarMenu from 'vue-sidebar-menu'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Datetime from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
+import VueTuicalendar from '@lkmadushan/vue-tuicalendar'
+import 'tui-calendar/dist/tui-calendar.min.css'
 
 
 Vue.prototype.$http = Axios;
@@ -18,6 +20,7 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue);
 Vue.use(VueSidebarMenu);
 Vue.use(Datetime)
+Vue.use(VueTuicalendar)
 
 /* eslint-disable no-new */
 new Vue({

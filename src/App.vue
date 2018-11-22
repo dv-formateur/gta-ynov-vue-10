@@ -9,12 +9,14 @@
 import NavBar from '@/components/NavBar'
 import { SidebarMenu } from 'vue-sidebar-menu'
 import { Datetime } from 'vue-datetime';
+import { VueTuicalendar } from '@lkmadushan/vue-tuicalendar'
 
 export default {
     components: {
         NavBar,
         SidebarMenu,
         Datetime,
+        VueTuicalendar,
     },
   name: 'App'
 

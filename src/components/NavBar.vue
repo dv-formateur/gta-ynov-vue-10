@@ -33,6 +33,7 @@
         methods: {
             disconect() {
                 localStorage.removeItem('jwt');
+                localStorage.removeItem('planning');
                 this.$router.push('/');
             }
         }
