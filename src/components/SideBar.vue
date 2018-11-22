@@ -22,8 +22,13 @@
                         },
                         {
                             href:'/user/agenda',
-                            title:'Agenda',
+                            title:'Ajouter un evenement',
                         },
+                        {
+                            href:'/user/planning',
+                            title:'Planning',
+                        },
+
                     ]
                 }
             },

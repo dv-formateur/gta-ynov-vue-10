@@ -36,7 +36,11 @@ Back-api : https://gta-ynov-vue-server.herokuapp.com/
 ```
 ```
 15/10/18 : Page-not-found [ok] / sidebar[en cours]  Routage [probleme : en cours} 
-16/11/18 : Modification de l'api calendrier /profile/contrat [] | regler le probleme de routage [] | trouver un systeme de planning 
+16/11/18 : Modification de l'api calendrier /profile/contrat [ok] | regler le probleme de routage [a moitier] | trouver un systeme de planning  [en cours]
+```
+
+```
+22/11/18: Ajout d'un planning / Reccuperer donnée sur les congées sur le planning / ajout d'un contrat
 ```
 
 
