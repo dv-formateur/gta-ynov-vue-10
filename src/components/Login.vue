@@ -32,8 +32,8 @@
                 FormLogin(e){
                     e.preventDefault()
                     if (this.password.length > 0) {
-                        // this.$http.post('https://gta-ynov-vue-server.herokuapp.com/login', {
-                            this.$http.post('http://localhost:3000/login',{
+                        this.$http.post('https://gta-ynov-vue-server.herokuapp.com/login', {
+                        //     this.$http.post('http://localhost:3000/login',{
                             email: this.username,
                             password: this.password
                         })

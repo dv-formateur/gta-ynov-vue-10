@@ -10,6 +10,7 @@ import Profile from '@/components/Profile'
 import Agenda from '@/components/Agenda'
 import Planning from '@/components/Planning'
 import Contrat from '@/components/Contrat'
+import ValidateEvent from '@/components/ValidateEvent'
 
 Vue.use(Router)
 
@@ -72,8 +73,15 @@ let router = new Router({
                   meta: {
                       requiresAuth: true,
                       role: 'D',
-
-
+                  }
+              },
+              {
+                  path:'validateEvent',
+                  name:'validateEvent',
+                  component: ValidateEvent,
+                  meta: {
+                      requiresAuth: true,
+                      role: 'D',
                   }
               },
             ],

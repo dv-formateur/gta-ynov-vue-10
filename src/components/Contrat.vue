@@ -38,6 +38,11 @@
                 </div>
 
                 <div>
+                    <label> Taux horraire Brut</label>
+                    <input v-model.number="price_hours" type="number">
+                </div>
+
+                <div>
                     <button type="submit" @click="handleSubmit">
                         Register
                     </button>
@@ -45,7 +50,17 @@
 
             </fieldset>
         </form>
+
+
+        <div>
+            <h1> Prévisualisation</h1>
+            <p> Nombre de jour de travail </p>
+            <p> Nombre d'heures de la misssion: </p>
+            <p> Nombre de congée total fin de mission: </p>
+            <p> Salaire Brut</p>
+        </div>
     </div>
+
 </template>
 
 <script>
@@ -68,8 +83,9 @@
         methods: {
             handleSubmit() {
 
+                let url = 'https://gta-ynov-vue-server.herokuapp.com/agenda_event'
+                // let url = 'http://localhost:3000/agenda_event'
 
-                let url = 'http://localhost:3000/agenda_event'
                 this.$http.post(url, {
                     userId: this.user,
                     dateBegin: this.dateBegin,
@@ -83,7 +99,8 @@
 
             this.admin = JSON.parse(localStorage.getItem('user'))
             let adminId = this.admin.id
-            this.$http.post('http://localhost:3000/supervision_user', {
+            this.$http.post('https://gta-ynov-vue-server.herokuapp.com/supervision_user', {
+            // this.$http.post('http://localhost:3000/supervision_user', {
                 adminId: adminId,
             })
                 .then(response => {

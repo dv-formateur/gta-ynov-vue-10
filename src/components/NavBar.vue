@@ -1,8 +1,14 @@
 <template>
 
-    <b-navbar toggleable="md" type="light" variant="light">
+    <b-navbar toggleable="md">
 
         <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+        <a href="/">Home</a>
+        <a href="/user/profile">Profile</a>
+        <a href="/user/agenda">Ajouter un evenement</a>
+        <a href="/user/planning">Planning</a>
+        <a href="/admin/contrat">Contrat</a>
+        <a href="/admin/validateEvent"> Valider évènement </a>
 
 
         <b-collapse is-nav id="nav_collapse">
@@ -41,6 +47,8 @@
 </script>
 
 <style scoped>
-
+    nav{
+        background-color:  #42b983;;
+    }
 
 </style>

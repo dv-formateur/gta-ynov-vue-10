@@ -41,7 +41,8 @@
             handleSubmit() {
                 this.user = JSON.parse(localStorage.getItem('user'))
 
-                let url = 'http://localhost:3000/agenda_event'
+                // let url = 'http://localhost:3000/agenda_event'
+                let url = 'https://gta-ynov-vue-server.herokuapp.com/agenda_event'
                 this.$http.post(url, {
                     userId: this.user.id,
                     dateBegin: this.dateBegin,

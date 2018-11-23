@@ -8,7 +8,7 @@
 
 
 
-        <calendar ref="calendar" style=" width:100%; height:800px; padding-left: 400px"
+        <calendar ref="calendar" style=" width:100%; height:800px; padding-left: 200px"
                   :calendars="calendarList"
                   :schedules="scheduleList"
                   :view="view"
@@ -43,7 +43,8 @@
             let user = JSON.parse(localStorage.getItem('user'))
             let userId = user.id
             console.log('post')
-            this.$http.post('http://localhost:3000/agendaPlanning', {
+            // this.$http.post('http://localhost:3000/agendaPlanning', {
+            this.$http.post('https://ta-ynov-vue-server.herokuapp.com/agendaPlanning', {
                 userId: userId,
             })
                 .then(response => {

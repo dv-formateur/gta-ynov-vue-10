@@ -46,7 +46,8 @@
         mounted() {
             let user = JSON.parse(localStorage.getItem('user'))
             let  userId = user.id
-            this.$http.post('http://localhost:3000/profile',{
+            // this.$http.post('http://localhost:3000/profile',{
+                this.$http.post('https://gta-ynov-vue-server.herokuapp.com/profile',{
                 userId: userId,
             })
                 .then(response => {
@@ -83,9 +84,37 @@
         border-radius: 4px;
         margin: 50px auto;
         width: 500px;
-        background-color: #fff;
-        box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.3);
+        background: #fff;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+        box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
     }
+
+    .card {
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        background: #fff;
+    }
+
+    .card-4 {
+        background: #fff;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+        box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-4 .card-body {
+        padding: 57px 65px;
+        padding-bottom: 65px;
+    }
+
     form fieldset {
         margin: 24px 0 0 0;
     }
