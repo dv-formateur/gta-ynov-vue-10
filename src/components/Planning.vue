@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="app-content">
         <button v-on:click="viewCalendarDay">ViewDay</button>
         <button v-on:click="viewCalendarWeek">ViewWeek</button>
         <button v-on:click="viewCalendarMonth">ViewMonth</button>
@@ -7,24 +7,28 @@
         <button v-on:click="nextCalendar">next</button>
 
 
-
-        <calendar ref="calendar" style=" width:100%; height:800px; padding-left: 200px"
-                  :calendars="calendarList"
-                  :schedules="scheduleList"
-                  :view="view"
-                  :taskView="taskView"
-                  :scheduleView="scheduleView"
-                  :theme="theme"
-                  :week="week"
-                  :month="month"
-                  :timezones="timezones"
-                  :disableDblClick="disableDblClick"
-                  :isReadOnly="isReadOnly"
-                  :template="template"
-                  :useCreationPopup="useCreationPopup"
-                  :useDetailPopup="useDetailPopup"
-        />
-
+        <div class="row">
+            <div class="col">
+                <div class="tile">
+                    <calendar ref="calendar" style="  height:800px;"
+                              :calendars="calendarList"
+                              :schedules="scheduleList"
+                              :view="view"
+                              :taskView="taskView"
+                              :scheduleView="scheduleView"
+                              :theme="theme"
+                              :week="week"
+                              :month="month"
+                              :timezones="timezones"
+                              :disableDblClick="disableDblClick"
+                              :isReadOnly="isReadOnly"
+                              :template="template"
+                              :useCreationPopup="useCreationPopup"
+                              :useDetailPopup="useDetailPopup"
+                    />
+                </div>
+            </div>
+        </div>
 
     </div>
 </template>
@@ -39,12 +43,11 @@
             'calendar': Calendar
         },
         mounted() {
-
             let user = JSON.parse(localStorage.getItem('user'))
             let userId = user.id
             console.log('post')
-            // this.$http.post('http://localhost:3000/agendaPlanning', {
-            this.$http.post('https://ta-ynov-vue-server.herokuapp.com/agendaPlanning', {
+            this.$http.post('http://localhost:3000/agendaPlanning', {
+                // this.$http.post('https://ta-ynov-vue-server.herokuapp.com/agendaPlanning', {
                 userId: userId,
             })
                 .then(response => {
@@ -62,30 +65,9 @@
                         }
                         this.scheduleList.push(tempEvent)
                     })
-                    // console.log(event)
+
                 })
 
-
-            // if(localStorage.getItem('planning') != null){
-            //     let planning = JSON.parse(localStorage.getItem('planning'))
-            //
-            //
-            //     planning.forEach(event => {
-            //         // console.log(event)
-            //         let tempEvent = {
-            //             id: event.id,
-            //             calendarId: event.id,
-            //             title: event.category,
-            //             category: 'time',
-            //             dueDateClass: '',
-            //             start: event.dateBegin,
-            //             end: event.dateEnd
-            //         }
-            //         this.scheduleList.push(tempEvent)
-            //         })
-            //     console.log( this.scheduleList)
-            //
-            // }
         },
         data() {
             return {
@@ -150,25 +132,22 @@
             nextCalendar: function () {
                 this.$refs.calendar.invoke('next');
             },
-            backCalendar: function(){
+            backCalendar: function () {
                 this.$refs.calendar.invoke('prev');
             },
-            viewCalendarDay: function(){
-                this.$refs.calendar.invoke('changeView','day','true')
+            viewCalendarDay: function () {
+                this.$refs.calendar.invoke('changeView', 'day', 'true')
             },
-            viewCalendarWeek: function(){
-                this.$refs.calendar.invoke('changeView','week','true')
+            viewCalendarWeek: function () {
+                this.$refs.calendar.invoke('changeView', 'week', 'true')
             },
-            viewCalendarMonth: function(){
-                this.$refs.calendar.invoke('changeView','month','true')
+            viewCalendarMonth: function () {
+                this.$refs.calendar.invoke('changeView', 'month', 'true')
             }
-
 
 
         }
     }
-
-
 
 
 </script>

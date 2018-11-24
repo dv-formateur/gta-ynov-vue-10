@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import UserBoard from '@/components/UserBoard'
@@ -37,6 +36,9 @@ let router = new Router({
           path: '/user',
           name: 'user',
           component: UserBoard,
+          meta: {
+              requiresAuth: true
+          },
           children: [
               {
                   path:'profile',
@@ -53,11 +55,7 @@ let router = new Router({
                   name:'planning',
                   component: Planning
               }
-          ],
-          meta: {
-              requiresAuth: true
-          }
-
+          ]
 
       },
 
@@ -65,7 +63,8 @@ let router = new Router({
           path: '/admin',
           name: 'admin',
           component: AdminBoard,
-          children: [
+
+              children: [
               {
                   path:'contrat',
                   name:'contrat',
@@ -89,18 +88,15 @@ let router = new Router({
               requiresAuth: true,
               role: 'D',
 
-
           }
-      },
-      { path: "*", component: PageNotFound,
-      meta: {
-          requireAuth:true
-      }}
+      }
 
   ]
 })
-router.beforeEach((to, from, next) => {
 
+
+
+router.beforeEach((to, from, next) => {
     if(to.matched.some(record => record.meta.requiresAuth)) {
         if (localStorage.getItem('jwt') == null) {
             next({
@@ -114,7 +110,7 @@ router.beforeEach((to, from, next) => {
                     next()
                 }
                 else{
-                    next({ name: 'user'})
+                    next({ name: 'profile'})
                 }
             }else {
                 next()
@@ -125,14 +121,11 @@ router.beforeEach((to, from, next) => {
             next()
         }
         else{
-            next({ name: 'user'})
+            next({ name: 'profile'})
         }
     }else {
         next()
     }
 })
-
-
-
 
 export default router

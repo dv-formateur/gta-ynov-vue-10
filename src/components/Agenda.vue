@@ -1,26 +1,41 @@
 <template>
-    <div>
-        <label> Date begin</label>
-        <datetime type="datetime" v-model="dateBegin" format="yyyy-MM-dd HH:mm:ss"></datetime>
-        <label> Date end</label>
-        <datetime  type="datetime" v-model="dateEnd" format="yyyy-MM-dd HH:mm:ss" :min-datetime="dateBegin" ></datetime>
-        <label> Categories </label>
-        <br>
-        <select v-model="category">
-            <option disabled value="">select category</option>
-            <option>Congée</option>
-            <option>Reccuperation</option>
-            <option>Amenagement</option>
-        </select>
-        <br>
-        <textarea v-model="reason" placeholder="Motif"></textarea>
-        <div>
-            <button type="submit" @click="handleSubmit">
-                Register
-            </button>
-        </div>
+    <div class="app-content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="tile">
+                    <h2> Demande de jour</h2>
+                    <label> Date begin</label>
+                    <datetime type="datetime" v-model="dateBegin" format="yyyy-MM-dd HH:mm:ss"></datetime>
+                    <label> Date end</label>
+                    <datetime type="datetime" v-model="dateEnd" format="yyyy-MM-dd HH:mm:ss"
+                              :min-datetime="dateBegin"></datetime>
+                    <label> Categories </label>
+                    <br>
+                    <select v-model="category">
+                        <option disabled value="">select category</option>
+                        <option>Congée</option>
+                        <option>Reccuperation</option>
+                        <option>Amenagement</option>
+                    </select>
+                    <br>
+                    <textarea v-model="reason" placeholder="Motif"></textarea>
 
+                    <button type="submit" @click="handleSubmit">
+                        Register
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="tile">
+                    <h2> Demande en cours de traitement</h2>
+                </div>
+
+            </div>
+
+        </div>
     </div>
+
+
 </template>
 
 <script>
@@ -28,12 +43,12 @@
         name: "Agenda",
         data() {
             return {
-                user:'',
-                userId:'',
+                user: '',
+                userId: '',
                 dateBegin: '',
                 dateEnd: '',
                 category: '',
-                reason:'',
+                reason: '',
 
             }
         },
@@ -41,8 +56,8 @@
             handleSubmit() {
                 this.user = JSON.parse(localStorage.getItem('user'))
 
-                // let url = 'http://localhost:3000/agenda_event'
-                let url = 'https://gta-ynov-vue-server.herokuapp.com/agenda_event'
+                let url = 'http://localhost:3000/agenda_event'
+                // let url = 'https://gta-ynov-vue-server.herokuapp.com/agenda_event'
                 this.$http.post(url, {
                     userId: this.user.id,
                     dateBegin: this.dateBegin,

@@ -3,79 +3,81 @@
         <div class="card card-signin my-5">
             <div class="card-body">
 
-            <h5 class="card-title text-center">Login</h5>
-                <form  class="form-signin" @submit.prevent="FormLogin">
+                <h5 class="card-title text-center">Login</h5>
+                <form class="form-signin" @submit.prevent="FormLogin">
                     <div class="form-label-group">
-                      <input required id="inputEmail"v-model="username" type="text" placeholder="email"  class="form-control"/>
+                        <input required id="inputEmail" v-model="username" type="text" placeholder="email"
+                               class="form-control"/>
                     </div>
                     <div class="form-label-group">
-                        <input required id="inputPassword" v-model="password" type="password" placeholder="Password"  class="form-control"/>
+                        <input required id="inputPassword" v-model="password" type="password" placeholder="Password"
+                               class="form-control"/>
                     </div>
 
 
-            <button class="btn btn-lg btn-primary btn-block text-uppercase"  type="submit">Login</button>
-        </form>
-        </div>
+                    <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
+                </form>
+            </div>
         </div>
     </div>
 </template>
 <script>
-        export default {
-            data(){
-                return {
-                    username : "",
-                    password : "",
-                    showDismissibleAlert: false,
-                }
-            },
-            methods : {
-                FormLogin(e){
-                    e.preventDefault()
-                    if (this.password.length > 0) {
-                        this.$http.post('https://gta-ynov-vue-server.herokuapp.com/login', {
-                        //     this.$http.post('http://localhost:3000/login',{
-                            email: this.username,
-                            password: this.password
-                        })
-                            .then(response => {
-                                let role = response.data.user.role
-                                localStorage.setItem('user',JSON.stringify(response.data.user))
-                                localStorage.setItem('jwt',response.data.token)
-                                // console.log(role)
+    export default {
+        data() {
+            return {
+                username: "",
+                password: "",
+                showDismissibleAlert: false,
+            }
+        },
+        methods: {
+            FormLogin(e) {
+                e.preventDefault()
+                if (this.password.length > 0) {
+                    // this.$http.post('https://gta-ynov-vue-server.herokuapp.com/login', {
+                    this.$http.post('http://localhost:3000/login', {
+                        email: this.username,
+                        password: this.password
+                    })
+                        .then(response => {
+                            let role = response.data.user.role
+                            localStorage.setItem('user', JSON.stringify(response.data.user))
+                            localStorage.setItem('jwt', response.data.token)
+                            // console.log(role)
 
-                                if (localStorage.getItem('jwt') != null) {
-                                    this.$emit('loggedIn')
-                                    if (this.$route.params.nextUrl != null) {
-                                        this.$router.push(this.$route.params.nextUrl)
-                                    }
-
-                                    else {
-                                        switch (role) {
-                                            case "D":
-                                                console.log('admin')
-                                                this.$router.push('admin')
-                                                break
-                                            case "R":
-                                                console.log('admin')
-                                                this.$router.push('admin')
-                                                break
-                                            case "S":
-                                                console.log("user")
-                                                this.$router.push('user')
-                                                break
-                                            default:
-                                                break
-                                        }
-                                    }
+                            if (localStorage.getItem('jwt') != null) {
+                                this.$emit('loggedIn')
+                                if (this.$route.params.nextUrl != null) {
+                                    this.$router.push(this.$route.params.nextUrl)
                                 }
 
-                            })
-                            .catch(function (error) {
-                                console.error(error.response);
-                            });
-                    }
+                                else {
+                                    switch (role) {
+                                        case "D":
+                                            console.log('admin')
+                                            this.$router.push('admin')
+                                            break
+                                        case "R":
+                                            console.log('admin')
+                                            this.$router.push('admin')
+                                            break
+                                        case "S":
+                                            console.log("user")
+                                            this.$router.push('user')
+                                            break
+                                        default:
+                                            break
+                                    }
+                                }
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.error(error.response);
+                        });
                 }
             }
+        }
 
     }
 </script>
@@ -83,7 +85,7 @@
 
 <style scoped>
 
-    #login{
+    #login {
         padding-top: 6rem;
     }
 
@@ -126,9 +128,8 @@
         border-radius: 2rem;
     }
 
-
     input {
         text-align: center;
 
     }
-    </style>
+</style>

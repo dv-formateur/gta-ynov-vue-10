@@ -1,4 +1,3 @@
-
 <template>
     <div>
         <h4>Register</h4>
@@ -8,7 +7,7 @@
                 <input id="name" type="text" v-model="name" required autofocus>
             </div>
 
-            <label for="email" >E-Mail Address</label>
+            <label for="email">E-Mail Address</label>
             <div>
                 <input id="email" type="email" v-model="email" required>
             </div>
@@ -43,26 +42,25 @@
 
 <script>
     export default {
-        props : ['nextUrl'],
-        data(){
+        props: ['nextUrl'],
+        data() {
             return {
-                name : "",
-                email : "",
-                password : "",
-                password_confirmation : "",
-                rules : "",
+                name: "",
+                email: "",
+                password: "",
+                password_confirmation: "",
+                rules: "",
             }
         },
-        methods : {
+        methods: {
             handleSubmit(e) {
                 e.preventDefault()
 
-                if (this.password === this.password_confirmation && this.password.length > 0)
-                {
+                if (this.password === this.password_confirmation && this.password.length > 0) {
                     // let url = 'https://gta-ynov-vue-server.herokuapp.com//register'
                     // if(this.is_admin != null || this.is_admin == 1) url = 'https://gta-ynov-vue-server.herokuapp.com/register-admin'
-                    // let url = 'http://localhost:3000/register'
-                    let url = 'https://gta-ynov-vue-server.herokuapp.com/register'
+                    let url = 'http://localhost:3000/register'
+                    // let url = 'https://gta-ynov-vue-server.herokuapp.com/register'
                     this.$http.post(url, {
                         name: this.name,
                         email: this.email,
@@ -70,15 +68,15 @@
                         role: this.rules
                     })
                         .then(response => {
-                            localStorage.setItem('user',JSON.stringify(response.data.user))
-                            localStorage.setItem('jwt',response.data.token)
+                            localStorage.setItem('user', JSON.stringify(response.data.user))
+                            localStorage.setItem('jwt', response.data.token)
 
-                            if (localStorage.getItem('jwt') != null){
+                            if (localStorage.getItem('jwt') != null) {
                                 this.$emit('loggedIn')
-                                if(this.$route.params.nextUrl != null){
+                                if (this.$route.params.nextUrl != null) {
                                     this.$router.push(this.$route.params.nextUrl)
                                 }
-                                else{
+                                else {
                                     this.$router.push('/')
                                 }
                             }
