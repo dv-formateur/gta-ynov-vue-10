@@ -12,8 +12,8 @@ import Datetime from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
 import VueTuicalendar from '@lkmadushan/vue-tuicalendar'
 import 'tui-calendar/dist/tui-calendar.min.css'
-
-
+import VueDateFns from "vue-date-fns";
+Vue.use(VueDateFns);
 Vue.prototype.$http = Axios;
 Vue.config.productionTip = false
 Vue.use(BootstrapVue);

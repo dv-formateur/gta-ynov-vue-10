@@ -19,10 +19,10 @@
                     <b-nav-item>
                         <router-link to="/user/planning">Planning</router-link>
                     </b-nav-item>
-                    <b-nav-item>
+                    <b-nav-item v-if="role=='R'">
                         <router-link to="/admin/contrat">Contrat</router-link>
                     </b-nav-item>
-                    <b-nav-item>
+                    <b-nav-item  v-if="role=='R'">
                         <router-link to="/admin/validateEvent">Valider évènement</router-link>
                     </b-nav-item>
                 </b-navbar-nav>
@@ -46,6 +46,7 @@
             return {
                 user: '',
                 name: '',
+                role:'',
             }
         },
         methods: {
@@ -57,6 +58,8 @@
         mounted() {
             this.user = JSON.parse(localStorage.getItem('user'))
             this.name = this.user.name
+            this.role = this.user.role
+
         }
     }
 </script>

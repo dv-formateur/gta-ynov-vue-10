@@ -9,6 +9,7 @@ import NavBar from '@/components/NavBar'
 import { Datetime } from 'vue-datetime';
 import { VueTuicalendar } from '@lkmadushan/vue-tuicalendar'
 
+
 export default {
     components: {
         NavBar,

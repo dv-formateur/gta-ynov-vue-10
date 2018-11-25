@@ -45,15 +45,17 @@
         mounted() {
             let user = JSON.parse(localStorage.getItem('user'))
             let userId = user.id
+            let verify ='1'
             console.log('post')
             this.$http.post('http://localhost:3000/agendaPlanning', {
                 // this.$http.post('https://ta-ynov-vue-server.herokuapp.com/agendaPlanning', {
                 userId: userId,
+                verify: verify,
             })
                 .then(response => {
-                    localStorage.setItem('planning', JSON.stringify(response.data.planning))
-                    console.log(response.data.planning)
-                    response.data.planning.forEach(event => {
+                    localStorage.setItem('planning', JSON.stringify(response.data.event))
+                    console.log(response.data.event)
+                    response.data.event.forEach(event => {
                         let tempEvent = {
                             id: event.id,
                             calendarId: event.id,

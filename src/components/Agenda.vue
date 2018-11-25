@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="tile">
-                    <h2> Demande de jour</h2>
+                    <h3 class="line-head"> Demande de jour</h3>
                     <label> Date begin</label>
                     <datetime type="datetime" v-model="dateBegin" format="yyyy-MM-dd HH:mm:ss"></datetime>
                     <label> Date end</label>
@@ -27,7 +27,28 @@
             </div>
             <div class="col-md-6">
                 <div class="tile">
-                    <h2> Demande en cours de traitement</h2>
+                    <h3 class="line-head"> Demande en cours de traitement</h3>
+                    <div class="card" v-for="event in tabEvent">
+                        <div class="card-header">
+
+                            {{event.length}}
+                            {{event.userId}}
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    {{event.category}}
+                                </div>
+                                <div class="col">
+                                    {{event.reason}}
+                                </div>
+                                <div class="col">
+                                    {{event.dateBegin}}
+                                    {{event.dateEnd}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -49,13 +70,35 @@
                 dateEnd: '',
                 category: '',
                 reason: '',
-
+                tabEvent:[],
             }
         },
         methods: {
-            handleSubmit() {
-                this.user = JSON.parse(localStorage.getItem('user'))
 
+            recoverEvent(){
+                console.log('reccuperer')
+                this.tabEvent=[]
+                let verify ='0'
+                let userId = this.user.id
+                this.$http.post('http://localhost:3000/agendaPlanning', {
+                    // this.$http.post('https://ta-ynov-vue-server.herokuapp.com/agendaPlanning', {
+                    userId: userId,
+                    verify: verify,
+                })
+                    .then(response => {
+                        console.log(response)
+                        response.data.event.forEach(event => {
+                            this.tabEvent.push(event)
+                        })
+                    })
+            },
+            resetForm(){
+                this.dateBegin="",
+                    this.dateEnd="",
+                    this.category="",
+                    this.reason=""
+            },
+            handleSubmit() {
                 let url = 'http://localhost:3000/agenda_event'
                 // let url = 'https://gta-ynov-vue-server.herokuapp.com/agenda_event'
                 this.$http.post(url, {
@@ -64,9 +107,20 @@
                     dateEnd: this.dateEnd,
                     category: this.category,
                     reason: this.reason,
+                }).then(response=>{
+                    this.resetForm()
+                    this.recoverEvent()
+                },response =>{
+                    console.log(response)
                 })
             }
-        }
+        },
+        mounted() {
+            this.user = JSON.parse(localStorage.getItem('user'))
+
+            this.recoverEvent()
+        },
+
     }
 </script>
 

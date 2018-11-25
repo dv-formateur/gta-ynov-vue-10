@@ -1,11 +1,12 @@
 <template>
+
     <div class="app-content">
         <div class="row">
             <div class="col-md-6">
                 <div class="tile">
-                    <form>
-                        <fieldset>
-                            <legend>Contrat</legend>
+
+
+                            <h3 class="line-head">Contrat</h3>
                             <div>
                                 <label> User</label>
                                 <select v-model="user">
@@ -19,9 +20,8 @@
                             </div>
 
                             <div>
-                                <label> Date end</label>
-                                <datetime type="datetime" v-model="dateEnd" format="yyyy-MM-dd HH:mm:ss"
-                                          :min-datetime="dateBegin"></datetime>
+                                <label> Nombre de semaine </label>
+                                <input v-model.number="week" type="number">
                             </div>
 
                             <div>
@@ -41,29 +41,27 @@
                                 <textarea v-model="reason" placeholder="Motif"></textarea>
                             </div>
 
-                            <div>
-                                <label> Taux horraire Brut</label>
-                                <input v-model.number="price_hours" type="number">
-                            </div>
+
 
                             <div>
                                 <button type="submit" @click="handleSubmit">
                                     Register
                                 </button>
+
                             </div>
 
-                        </fieldset>
-                    </form>
+                    <button  @click="ok">ok</button>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="tile">
                     <div>
-                        <h1> Prévisualisation</h1>
-                        <p> Nombre de jour de travail </p>
-                        <p> Nombre d'heures de la misssion: </p>
-                        <p> Nombre de congée total fin de mission: </p>
-                        <p> Salaire Brut</p>
+                        <h3 class="line-head"> Prévisualisation</h3>
+                        <p> Nombre de jour de travail:  {{nbDay}} </p>
+
+                        <p> Nombre d'heures de la misssion:{{hourMission}} </p>
+                        <p> Nombre de congée total fin de mission:{{holiday}} </p>
+
                     </div>
                 </div>
             </div>
@@ -75,6 +73,7 @@
 <script>
     export default {
         name: "Contrat",
+
         data() {
             return {
                 admin: '',
@@ -82,14 +81,23 @@
                 tabUser: [],
                 userId: '',
                 dateBegin: '',
-                dateEnd: '',
+                week: '',
                 category: '',
                 reason: '',
                 hours: '',
+                nbDay:'0',
+                priceHours:'',
+                hourMission:'',
+                holiday:'',
 
             }
         },
         methods: {
+            ok(){
+                this.nbDay=5*this.week
+                this.hourMission=this.week*this.hours
+                this.holiday=this.nbDay/9.6
+            },
             handleSubmit() {
 
                 // let url = 'https://gta-ynov-vue-server.herokuapp.com/agenda_event'
@@ -104,6 +112,7 @@
                 })
             }
         },
+
         mounted() {
 
             this.admin = JSON.parse(localStorage.getItem('user'))

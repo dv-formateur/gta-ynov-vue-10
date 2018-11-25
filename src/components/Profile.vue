@@ -4,7 +4,7 @@
             <div class="col-md-6">
                 <div class="tile">
                     <form>
-                        <h2>Information personnel</h2>
+                        <h3 class="line-head">Information personnel</h3>
                         <div>
                             <label class="label">Name</label>
                             <input type="text" name="name" id="name" required="" v-model="name">
@@ -40,7 +40,7 @@
 
             <div class="col-md-6">
                 <div class="tile">
-                    <h2>Contrat</h2>
+                    <h3 class="line-head">Contrat</h3>
                 </div>
             </div>
         </div>
