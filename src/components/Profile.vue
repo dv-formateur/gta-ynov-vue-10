@@ -41,18 +41,27 @@
             <div class="col-md-6">
                 <div class="tile">
                     <h3 class="line-head">Contrat</h3>
+                    <div class="card">
+                        {{contrat}}
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg">
-                <h1> Nombre de jour travailler </h1>
+                <div class="tile">
+                    <h1> Nombre de jour travailler:{{daysWorked}} </h1>
+                </div>
             </div>
             <div class="col-lg">
-                <h1> Nombre de jour restant</h1>
+                <div class="tile">
+                    <h1> Nombre de jour restant:{{daysRemaining}}</h1>
+                </div>
             </div>
             <div class="col-lg">
-                <h1> Nombre de jour congée </h1>
+                <div class="tile">
+                    <h1> Nombre de jour congée:{{daysHoliday}} </h1>
+                </div>
             </div>
         </div>
     </div>
@@ -62,28 +71,33 @@
 
 
 <script>
+    import moment from 'moment'
+
     export default {
         name: "Profile",
 
         mounted() {
-            let user = JSON.parse(localStorage.getItem('user'))
-            let userId = user.id
-            this.$http.post('http://localhost:3000/profile', {
-                // this.$http.post('https://gta-ynov-vue-server.herokuapp.com/profile',{
-                userId: userId,
+            this.user = JSON.parse(localStorage.getItem('user'))
+
+            this.recoverProfil()
+            this.$http.post('http://localhost:3000/profile_contrat', {
+                // this.$http.post('https://gta-ynov-vue-server.herokuapp.com/profile_contrat',{
+                userId: this.user.id,
             })
                 .then(response => {
-                    localStorage.setItem('profile', JSON.stringify(response.data.userProfile))
-                    console.log(response.data.userProfile)
-                    this.name = response.data.userProfile.name
-                    this.surname = response.data.userProfile.surname
-                    this.birth = response.data.userProfile.birth
-                    this.phone = response.data.userProfile.tel
-                    this.address = response.data.userProfile.address
+                    this.contrat = JSON.stringify(response.data.contrat)
+                    console.log(this.contrat)
+
+                    // this.daysWorked = moment.duration(this.contrat.dateBegin.diff(moment().format('LL')))
+                  
+
                 })
 
 
-        },
+
+        }
+
+        ,
         data() {
             return {
                 userProfile: '',
@@ -92,9 +106,38 @@
                 birth: '',
                 phone: '',
                 address: '',
+                contrat: '',
+                daysWorked: '',
+                daysRemaining: '',
+                daysHoliday: '',
+
+
             }
 
+        },
+        methods: {
+            recoverProfil(){
+                let userId = this.user.id
+                this.$http.post('http://localhost:3000/profile', {
+                    // this.$http.post('https://gta-ynov-vue-server.herokuapp.com/profile',{
+                    userId: userId,
+                })
+                    .then(response => {
+                        localStorage.setItem('profile', JSON.stringify(response.data.userProfile))
+                        console.log(response.data.userProfile)
+                        this.name = response.data.userProfile.name
+                        this.surname = response.data.userProfile.surname
+                        this.birth = response.data.userProfile.birth
+                        this.phone = response.data.userProfile.tel
+                        this.address = response.data.userProfile.address
+                    })
+
+
+            }
+
+
         }
+
     }
 </script>
 

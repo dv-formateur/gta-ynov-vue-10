@@ -12,18 +12,19 @@ import Datetime from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
 import VueTuicalendar from '@lkmadushan/vue-tuicalendar'
 import 'tui-calendar/dist/tui-calendar.min.css'
-import VueDateFns from "vue-date-fns";
-Vue.use(VueDateFns);
+import moment from 'moment'
+
 Vue.prototype.$http = Axios;
 Vue.config.productionTip = false
 Vue.use(BootstrapVue);
 Vue.use(Datetime)
 Vue.use(VueTuicalendar)
+Vue.use(moment)
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  components: { App, NavBar },
+  components: { App, NavBar,moment },
   template: '<App/>'
 })

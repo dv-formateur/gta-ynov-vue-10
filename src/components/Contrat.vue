@@ -16,17 +16,17 @@
 
                             <div>
                                 <label> Date begin</label>
-                                <datetime type="datetime" v-model="dateBegin" format="yyyy-MM-dd HH:mm:ss"></datetime>
+                                <datetime type="datetime" v-model="dateBegin" format="yyyy-MM-dd HH:mm:ss" @change="visu()" ></datetime>
                             </div>
 
                             <div>
                                 <label> Nombre de semaine </label>
-                                <input v-model.number="week" type="number">
+                                <input v-model.number="week" type="number" @change="visu()" >
                             </div>
 
                             <div>
                                 <label> Nombre d'heure hebdomadaire </label>
-                                <input v-model.number="hours" type="number">
+                                <input v-model.number="hours" type="number" @change="visu()" >
                             </div>
 
                             <div>
@@ -50,7 +50,7 @@
 
                             </div>
 
-                    <button  @click="ok">ok</button>
+
                 </div>
             </div>
             <div class="col-md-6">
@@ -61,6 +61,7 @@
 
                         <p> Nombre d'heures de la misssion:{{hourMission}} </p>
                         <p> Nombre de congée total fin de mission:{{holiday}} </p>
+                        <p> Fin de la mission {{dateEnd}}</p>
 
                     </div>
                 </div>
@@ -71,6 +72,7 @@
 </template>
 
 <script>
+    import moment from 'moment'
     export default {
         name: "Contrat",
 
@@ -81,11 +83,13 @@
                 tabUser: [],
                 userId: '',
                 dateBegin: '',
+                dateEnd:'',
                 week: '',
                 category: '',
                 reason: '',
                 hours: '',
-                nbDay:'0',
+                nbDay:'',
+                nbDayAllWeek:'',
                 priceHours:'',
                 hourMission:'',
                 holiday:'',
@@ -93,22 +97,26 @@
             }
         },
         methods: {
-            ok(){
+            visu(){
                 this.nbDay=5*this.week
+                this.nbDayAllWeek=7*this.week,
                 this.hourMission=this.week*this.hours
                 this.holiday=this.nbDay/9.6
+                this.dateEnd = moment(this.dateBegin).add(this.nbDayAllWeek, 'day').format('LLL')
             },
             handleSubmit() {
 
-                // let url = 'https://gta-ynov-vue-server.herokuapp.com/agenda_event'
-                let url = 'http://localhost:3000/agenda_event'
+                // let url = 'https://gta-ynov-vue-server.herokuapp.com/insertContrat'
+                let url = 'http://localhost:3000/insert_contrat'
 
                 this.$http.post(url, {
                     userId: this.user,
                     dateBegin: this.dateBegin,
                     dateEnd: this.dateEnd,
+                    numberWeek: this.numberWeek,
+                    hoursWeekly: this.hours,
                     category: this.category,
-                    reason: this.reason,
+                    reason:this.reason
                 })
             }
         },
