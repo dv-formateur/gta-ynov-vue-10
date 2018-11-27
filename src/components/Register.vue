@@ -59,8 +59,8 @@
                 if (this.password === this.password_confirmation && this.password.length > 0) {
                     // let url = 'https://gta-ynov-vue-server.herokuapp.com//register'
                     // if(this.is_admin != null || this.is_admin == 1) url = 'https://gta-ynov-vue-server.herokuapp.com/register-admin'
-                    let url = 'http://localhost:3000/register'
-                    // let url = 'https://gta-ynov-vue-server.herokuapp.com/register'
+                    // let url = 'http://localhost:3000/register'
+                    let url = 'https://gta-ynov-vue-server.herokuapp.com/register'
                     this.$http.post(url, {
                         name: this.name,
                         email: this.email,

@@ -1,10 +1,13 @@
 <template>
     <div class="app-content">
+        {{nameMonth}}
         <button v-on:click="viewCalendarDay">ViewDay</button>
         <button v-on:click="viewCalendarWeek">ViewWeek</button>
         <button v-on:click="viewCalendarMonth">ViewMonth</button>
         <button v-on:click="backCalendar">back</button>
         <button v-on:click="nextCalendar">next</button>
+
+
 
 
         <div class="row">
@@ -47,8 +50,8 @@
             let userId = user.id
             let verify ='1'
             console.log('post')
-            this.$http.post('http://localhost:3000/agendaPlanning', {
-                // this.$http.post('https://ta-ynov-vue-server.herokuapp.com/agendaPlanning', {
+            // this.$http.post('http://localhost:3000/agendaPlanning', {
+                this.$http.post('https://gta-ynov-vue-server.herokuapp.com/agendaPlanning', {
                 userId: userId,
                 verify: verify,
             })
@@ -69,11 +72,13 @@
                     })
 
                 })
+            this.nameMonth=this.$refs.calendar.invoke('getDateRangeStart').toUTCString()
 
         },
         data() {
             return {
 
+                nameMonth:'',
                 calendarList: [
                     {
                         id: '0',
@@ -133,9 +138,11 @@
         methods: {
             nextCalendar: function () {
                 this.$refs.calendar.invoke('next');
+                this.nameMonth=this.$refs.calendar.invoke('getDateRangeStart').toUTCString()
             },
             backCalendar: function () {
                 this.$refs.calendar.invoke('prev');
+                this.nameMonth=this.$refs.calendar.invoke('getDateRangeStart').toUTCString()
             },
             viewCalendarDay: function () {
                 this.$refs.calendar.invoke('changeView', 'day', 'true')

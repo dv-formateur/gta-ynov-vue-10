@@ -4,7 +4,6 @@
         <nav-bar></nav-bar>
 
         <router-view></router-view>
-        <h1>Page admin</h1>
 
     </div>
 </template>

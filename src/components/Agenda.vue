@@ -80,8 +80,8 @@
                 this.tabEvent=[]
                 let verify ='0'
                 let userId = this.user.id
-                this.$http.post('http://localhost:3000/agendaPlanning', {
-                    // this.$http.post('https://ta-ynov-vue-server.herokuapp.com/agendaPlanning', {
+                // this.$http.post('http://localhost:3000/agendaPlanning', {
+                    this.$http.post('https://gta-ynov-vue-server.herokuapp.com/agendaPlanning', {
                     userId: userId,
                     verify: verify,
                 })
@@ -99,8 +99,8 @@
                     this.reason=""
             },
             handleSubmit() {
-                let url = 'http://localhost:3000/agenda_event'
-                // let url = 'https://gta-ynov-vue-server.herokuapp.com/agenda_event'
+                // let url = 'http://localhost:3000/agenda_event'
+                let url = 'https://gta-ynov-vue-server.herokuapp.com/agenda_event'
                 this.$http.post(url, {
                     userId: this.user.id,
                     dateBegin: this.dateBegin,

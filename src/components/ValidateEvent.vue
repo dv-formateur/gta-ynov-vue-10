@@ -48,8 +48,8 @@
                 console.log(index)
                 this.tabEvent.splice(index, 1)
                 console.log(idEvent, vote)
-                // this.$http.post('https://gta-ynov-vue-server.herokuapp.com/adminVoteEvent',{
-                this.$http.post('http://localhost:3000/adminVoteEvent', {
+                this.$http.post('https://gta-ynov-vue-server.herokuapp.com/adminVoteEvent',{
+                // this.$http.post('http://localhost:3000/adminVoteEvent', {
 
                     idEvent: idEvent,
                     vote: vote,
@@ -62,7 +62,8 @@
 
             this.admin = JSON.parse(localStorage.getItem('user'))
             let adminId = this.admin.id
-            this.$http.post('http://localhost:3000/adminEventSupervision', {
+            this.$http.post('https://gta-ynov-vue-server.herokuapp.com/adminEventSupervision', {
+            // this.$http.post('http://localhost:3000/adminEventSupervision', {
                 adminId: adminId,
             })
                 .then(response => {

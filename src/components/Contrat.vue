@@ -67,6 +67,21 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="tile">
+                    <h3 class="line-head"> Contrat en attente</h3>
+                    <div class="card" v-for="contrat in tabContrat">
+                        {{contrat}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="tile">
+                    <h3 class="line-head"> Contrat en cours</h3>
+                </div>
+            </div>
+        </div>
     </div>
 
 </template>
@@ -81,6 +96,7 @@
                 admin: '',
                 user: '',
                 tabUser: [],
+                tabContrat:[],
                 userId: '',
                 dateBegin: '',
                 dateEnd:'',
@@ -97,6 +113,8 @@
             }
         },
         methods: {
+
+
             visu(){
                 this.nbDay=5*this.week
                 this.nbDayAllWeek=7*this.week,
@@ -106,8 +124,8 @@
             },
             handleSubmit() {
 
-                // let url = 'https://gta-ynov-vue-server.herokuapp.com/insertContrat'
-                let url = 'http://localhost:3000/insert_contrat'
+                let url = 'https://gta-ynov-vue-server.herokuapp.com/insertContrat'
+                // let url = 'http://localhost:3000/insert_contrat'
 
                 this.$http.post(url, {
                     userId: this.user,
@@ -117,24 +135,57 @@
                     hoursWeekly: this.hours,
                     category: this.category,
                     reason:this.reason
+                }).then(response=>{
+                        this.refreshForm()
+                        this.recoverContrat()
+            })
+            },
+            checkProfile() {
+                console.log('test')
+                this.$http.post('https://gta-ynov-vue-server.herokuapp.com/supervision_user', {
+                // this.$http.post('http://localhost:3000/supervision_user', {
+                    adminId: this.admin.id,
                 })
-            }
-        },
+                    .then(response => {
+                        console.log(response.data.user)
+                        response.data.user.forEach(userSuperviser => {
+                            this.tabUser.push(userSuperviser)
+                        })
+                    })
+            },
+            refreshForm(){
+                    this.dateBegin='',
+                    this.dateEnd='',
+                    this.numberWeek='',
+                    this.hours='',
+                    this.category='',
+                    this.reason=''
 
+            },
+
+            recoverContrat(){
+                console.log('reccuperer')
+                this.tabContrat=[]
+                // this.$http.post('http://localhost:3000/admin_contrat', {
+                    this.$http.post('https://gta-ynov-vue-server.herokuapp.com/admin_contrat', {
+                    adminId: this.admin.id,
+                })
+                    .then(response => {
+                        console.log(response)
+                        response.data.contrat.forEach(contrat => {
+                            this.tabContrat.push(contrat)
+                        })
+                    })
+            },
+
+
+        },
         mounted() {
 
             this.admin = JSON.parse(localStorage.getItem('user'))
-            let adminId = this.admin.id
-            this.$http.post('https://gta-ynov-vue-server.herokuapp.com/supervision_user', {
-                // this.$http.post('http://localhost:3000/supervision_user', {
-                adminId: adminId,
-            })
-                .then(response => {
-                    console.log(response.data.user)
-                    response.data.user.forEach(userSuperviser => {
-                        this.tabUser.push(userSuperviser)
-                    })
-                })
+            this.checkProfile()
+            this.recoverContrat()
+
         }
     }
 </script>

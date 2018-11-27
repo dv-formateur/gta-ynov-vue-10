@@ -42,7 +42,7 @@
                 <div class="tile">
                     <h3 class="line-head">Contrat</h3>
                     <div class="card">
-                        {{contrat}}
+                        {{Usercontrat}}
                     </div>
                 </div>
             </div>
@@ -71,29 +71,20 @@
 
 
 <script>
-    import moment from 'moment'
 
     export default {
         name: "Profile",
 
         mounted() {
             this.user = JSON.parse(localStorage.getItem('user'))
-
             this.recoverProfil()
-            this.$http.post('http://localhost:3000/profile_contrat', {
-                // this.$http.post('https://gta-ynov-vue-server.herokuapp.com/profile_contrat',{
+            // this.$http.post('http://localhost:3000/profile_contrat', {
+                this.$http.post('https://gta-ynov-vue-server.herokuapp.com/profile_contrat',{
                 userId: this.user.id,
             })
                 .then(response => {
-                    this.contrat = JSON.stringify(response.data.contrat)
-                    console.log(this.contrat)
-
-                    // this.daysWorked = moment.duration(this.contrat.dateBegin.diff(moment().format('LL')))
-                  
-
+                    this.Usercontrat = response.data.contrat
                 })
-
-
 
         }
 
@@ -106,7 +97,7 @@
                 birth: '',
                 phone: '',
                 address: '',
-                contrat: '',
+                Usercontrat: '',
                 daysWorked: '',
                 daysRemaining: '',
                 daysHoliday: '',
@@ -118,8 +109,8 @@
         methods: {
             recoverProfil(){
                 let userId = this.user.id
-                this.$http.post('http://localhost:3000/profile', {
-                    // this.$http.post('https://gta-ynov-vue-server.herokuapp.com/profile',{
+                // this.$http.post('http://localhost:3000/profile', {
+                    this.$http.post('https://gta-ynov-vue-server.herokuapp.com/profile',{
                     userId: userId,
                 })
                     .then(response => {
