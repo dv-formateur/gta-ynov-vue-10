@@ -42,7 +42,6 @@
                 admin: ''
             }
         },
-
         methods: {
             check(event, idEvent, vote) {
                 let index = this.tabEvent.indexOf(event)
@@ -50,15 +49,14 @@
                 this.tabEvent.splice(index, 1)
                 console.log(idEvent, vote)
                 this.$http.post('https://gta-ynov-vue-server.herokuapp.com/adminVoteEvent', {
-                    // this.$http.post('http://localhost:3000/adminVoteEvent', {
+                //     this.$http.post('http://localhost:3000/adminVoteEvent', {
                     idEvent: idEvent,
                     vote: vote,
                 })
-
             },
             recoverAdmin() {
                 this.$http.post('https://gta-ynov-vue-server.herokuapp.com/adminEventSupervision', {
-                    // this.$http.post('http://localhost:3000/adminEventSupervision', {
+                //     this.$http.post('http://localhost:3000/adminEventSupervision', {
                     adminId: this.admin.id,
                 })
                     .then(response => {
@@ -67,12 +65,10 @@
                             this.tabEvent.push(event)
                         })
                     })
-
             }
         },
 
         mounted() {
-
             this.admin = JSON.parse(localStorage.getItem('user'))
             this.recoverAdmin()
         }

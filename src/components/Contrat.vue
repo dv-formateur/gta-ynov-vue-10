@@ -114,8 +114,6 @@
             }
         },
         methods: {
-
-
             visu() {
                 this.nbDay = 5 * this.week
                 this.nbDayAllWeek = 7 * this.week,
@@ -125,7 +123,7 @@
             },
             handleSubmit() {
 
-                let url = 'https://gta-ynov-vue-server.herokuapp.com/insertContrat'
+                let url = 'https://gta-ynov-vue-server.herokuapp.com/insert_contrat'
                 // let url = 'http://localhost:3000/insert_contrat'
 
                 this.$http.post(url, {
@@ -144,7 +142,7 @@
             checkProfile() {
                 console.log('test')
                 this.$http.post('https://gta-ynov-vue-server.herokuapp.com/supervision_user', {
-                    // this.$http.post('http://localhost:3000/supervision_user', {
+                //     this.$http.post('http://localhost:3000/supervision_user', {
                     adminId: this.admin.id,
                 })
                     .then(response => {
@@ -178,8 +176,6 @@
                         })
                     })
             },
-
-
         },
         mounted() {
 

@@ -32,7 +32,7 @@
                             <input type="text" name="address" id="address" required="" v-model="address">
                         </div>
 
-                        <button type="button" v-on:click="" class="btn btn-outline-danger">Save</button>
+                        <button type="button" v-on:click="handleSubmit" class="btn btn-outline-danger">Save</button>
 
                     </form>
                 </div>
@@ -79,11 +79,8 @@
             this.user = JSON.parse(localStorage.getItem('user'))
             this.recoverProfil()
             this.recoverContrat()
-
-
-        }
-
-        ,
+            console.log(this.Usercontrat)
+        },
         data() {
             return {
                 userProfile: '',
@@ -92,7 +89,7 @@
                 birth: '',
                 phone: '',
                 address: '',
-                Usercontrat: '',
+                Usercontrat:'',
                 daysWorked: '',
                 daysRemaining: '',
                 daysHoliday: '',
@@ -100,10 +97,9 @@
         },
         methods: {
             recoverProfil() {
-                let userId = this.user.id
                 // this.$http.post('http://localhost:3000/profile', {
                 this.$http.post('https://gta-ynov-vue-server.herokuapp.com/profile', {
-                    userId: userId,
+                    userId: this.user.id,
                 })
                     .then(response => {
                         localStorage.setItem('profile', JSON.stringify(response.data.userProfile))
@@ -115,15 +111,30 @@
                         this.address = response.data.userProfile.address
                     })
             },
+
             recoverContrat() {
                 this.$http.post('https://gta-ynov-vue-server.herokuapp.com/profile_contrat', {
-                    // this.$http.post('http://localhost:3000/profile_contrat', {
+                //     this.$http.post('http://localhost:3000/profile_contrat', {
                     userId: this.user.id,
                 })
                     .then(response => {
-                        this.Usercontrat = response.data.contrat
+                        this.Usercontrat = JSON.stringify(response.data.contrat)
                     })
+            },
 
+            handleSubmit() {
+                console.log('update')
+                this.$http.post('https://gta-ynov-vue-server.herokuapp.com/profile_update',{
+                // this.$http.post('http://localhost:3000/profile_update',{
+                    userId: this.user.id,
+                    surname:  this.surname,
+                    name: this.name,
+                    birth :this.birth,
+                    tel: this.phone,
+                    address: this.address
+                }).then(
+                    this.recoverProfil
+                )
             }
         }
 
