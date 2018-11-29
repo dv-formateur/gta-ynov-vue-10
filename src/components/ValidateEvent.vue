@@ -38,7 +38,8 @@
         name: "ValidateEvent",
         data() {
             return {
-                tabEvent: []
+                tabEvent: [],
+                admin: ''
             }
         },
 
@@ -48,30 +49,32 @@
                 console.log(index)
                 this.tabEvent.splice(index, 1)
                 console.log(idEvent, vote)
-                this.$http.post('https://gta-ynov-vue-server.herokuapp.com/adminVoteEvent',{
-                // this.$http.post('http://localhost:3000/adminVoteEvent', {
-
+                this.$http.post('https://gta-ynov-vue-server.herokuapp.com/adminVoteEvent', {
+                    // this.$http.post('http://localhost:3000/adminVoteEvent', {
                     idEvent: idEvent,
                     vote: vote,
                 })
 
             },
+            recoverAdmin() {
+                this.$http.post('https://gta-ynov-vue-server.herokuapp.com/adminEventSupervision', {
+                    // this.$http.post('http://localhost:3000/adminEventSupervision', {
+                    adminId: this.admin.id,
+                })
+                    .then(response => {
+                        console.log(response.data.event)
+                        response.data.event.forEach(event => {
+                            this.tabEvent.push(event)
+                        })
+                    })
+
+            }
         },
 
         mounted() {
 
             this.admin = JSON.parse(localStorage.getItem('user'))
-            let adminId = this.admin.id
-            this.$http.post('https://gta-ynov-vue-server.herokuapp.com/adminEventSupervision', {
-            // this.$http.post('http://localhost:3000/adminEventSupervision', {
-                adminId: adminId,
-            })
-                .then(response => {
-                    console.log(response.data.event)
-                    response.data.event.forEach(event => {
-                        this.tabEvent.push(event)
-                    })
-                })
+            this.recoverAdmin()
         }
     }
 </script>

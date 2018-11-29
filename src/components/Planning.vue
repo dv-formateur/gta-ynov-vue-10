@@ -7,9 +7,6 @@
         <button v-on:click="backCalendar">back</button>
         <button v-on:click="nextCalendar">next</button>
 
-
-
-
         <div class="row">
             <div class="col">
                 <div class="tile">
@@ -46,39 +43,14 @@
             'calendar': Calendar
         },
         mounted() {
-            let user = JSON.parse(localStorage.getItem('user'))
-            let userId = user.id
-            let verify ='1'
-            console.log('post')
-            // this.$http.post('http://localhost:3000/agendaPlanning', {
-                this.$http.post('https://gta-ynov-vue-server.herokuapp.com/agendaPlanning', {
-                userId: userId,
-                verify: verify,
-            })
-                .then(response => {
-                    localStorage.setItem('planning', JSON.stringify(response.data.event))
-                    console.log(response.data.event)
-                    response.data.event.forEach(event => {
-                        let tempEvent = {
-                            id: event.id,
-                            calendarId: event.id,
-                            title: event.category,
-                            category: 'time',
-                            dueDateClass: '',
-                            start: event.dateBegin,
-                            end: event.dateEnd
-                        }
-                        this.scheduleList.push(tempEvent)
-                    })
-
-                })
-            this.nameMonth=this.$refs.calendar.invoke('getDateRangeStart').toUTCString()
+            this.user = JSON.parse(localStorage.getItem('user'))
+            this.recoverPlanning()
 
         },
         data() {
             return {
-
-                nameMonth:'',
+                user: '',
+                nameMonth: '',
                 calendarList: [
                     {
                         id: '0',
@@ -136,13 +108,41 @@
             }
         },
         methods: {
+            recoverPlanning() {
+                let verify = '1'
+                console.log('post')
+                // this.$http.post('http://localhost:3000/agendaPlanning', {
+                this.$http.post('https://gta-ynov-vue-server.herokuapp.com/agendaPlanning', {
+                    userId: this.user.id,
+                    verify: verify,
+                })
+                    .then(response => {
+                        localStorage.setItem('planning', JSON.stringify(response.data.event))
+                        console.log(response.data.event)
+                        response.data.event.forEach(event => {
+                            let tempEvent = {
+                                id: event.id,
+                                calendarId: event.id,
+                                title: event.category,
+                                category: 'time',
+                                dueDateClass: '',
+                                start: event.dateBegin,
+                                end: event.dateEnd
+                            }
+                            this.scheduleList.push(tempEvent)
+                        })
+
+                    })
+                this.nameMonth = this.$refs.calendar.invoke('getDateRangeStart').toUTCString()
+
+            },
             nextCalendar: function () {
                 this.$refs.calendar.invoke('next');
-                this.nameMonth=this.$refs.calendar.invoke('getDateRangeStart').toUTCString()
+                this.nameMonth = this.$refs.calendar.invoke('getDateRangeStart').toUTCString()
             },
             backCalendar: function () {
                 this.$refs.calendar.invoke('prev');
-                this.nameMonth=this.$refs.calendar.invoke('getDateRangeStart').toUTCString()
+                this.nameMonth = this.$refs.calendar.invoke('getDateRangeStart').toUTCString()
             },
             viewCalendarDay: function () {
                 this.$refs.calendar.invoke('changeView', 'day', 'true')

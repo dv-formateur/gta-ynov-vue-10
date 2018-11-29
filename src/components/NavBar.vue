@@ -22,7 +22,7 @@
                     <b-nav-item v-if="role=='R'">
                         <router-link to="/admin/contrat">Contrat</router-link>
                     </b-nav-item>
-                    <b-nav-item  v-if="role=='R'">
+                    <b-nav-item v-if="role=='R'">
                         <router-link to="/admin/validateEvent">Valider évènement</router-link>
                     </b-nav-item>
                 </b-navbar-nav>
@@ -46,7 +46,7 @@
             return {
                 user: '',
                 name: '',
-                role:'',
+                role: '',
             }
         },
         methods: {

@@ -70,18 +70,18 @@
                 dateEnd: '',
                 category: '',
                 reason: '',
-                tabEvent:[],
+                tabEvent: [],
             }
         },
         methods: {
 
-            recoverEvent(){
+            recoverEvent() {
                 console.log('reccuperer')
-                this.tabEvent=[]
-                let verify ='0'
+                this.tabEvent = []
+                let verify = '0'
                 let userId = this.user.id
                 // this.$http.post('http://localhost:3000/agendaPlanning', {
-                    this.$http.post('https://gta-ynov-vue-server.herokuapp.com/agendaPlanning', {
+                this.$http.post('https://gta-ynov-vue-server.herokuapp.com/agendaPlanning', {
                     userId: userId,
                     verify: verify,
                 })
@@ -92,11 +92,11 @@
                         })
                     })
             },
-            resetForm(){
-                this.dateBegin="",
-                    this.dateEnd="",
-                    this.category="",
-                    this.reason=""
+            resetForm() {
+                this.dateBegin = "",
+                    this.dateEnd = "",
+                    this.category = "",
+                    this.reason = ""
             },
             handleSubmit() {
                 // let url = 'http://localhost:3000/agenda_event'
@@ -107,10 +107,10 @@
                     dateEnd: this.dateEnd,
                     category: this.category,
                     reason: this.reason,
-                }).then(response=>{
+                }).then(response => {
                     this.resetForm()
                     this.recoverEvent()
-                },response =>{
+                }, response => {
                     console.log(response)
                 })
             }

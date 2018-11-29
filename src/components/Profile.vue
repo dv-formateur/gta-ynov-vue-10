@@ -78,13 +78,8 @@
         mounted() {
             this.user = JSON.parse(localStorage.getItem('user'))
             this.recoverProfil()
-            // this.$http.post('http://localhost:3000/profile_contrat', {
-                this.$http.post('https://gta-ynov-vue-server.herokuapp.com/profile_contrat',{
-                userId: this.user.id,
-            })
-                .then(response => {
-                    this.Usercontrat = response.data.contrat
-                })
+            this.recoverContrat()
+
 
         }
 
@@ -101,16 +96,13 @@
                 daysWorked: '',
                 daysRemaining: '',
                 daysHoliday: '',
-
-
             }
-
         },
         methods: {
-            recoverProfil(){
+            recoverProfil() {
                 let userId = this.user.id
                 // this.$http.post('http://localhost:3000/profile', {
-                    this.$http.post('https://gta-ynov-vue-server.herokuapp.com/profile',{
+                this.$http.post('https://gta-ynov-vue-server.herokuapp.com/profile', {
                     userId: userId,
                 })
                     .then(response => {
@@ -122,11 +114,17 @@
                         this.phone = response.data.userProfile.tel
                         this.address = response.data.userProfile.address
                     })
-
+            },
+            recoverContrat() {
+                this.$http.post('https://gta-ynov-vue-server.herokuapp.com/profile_contrat', {
+                    // this.$http.post('http://localhost:3000/profile_contrat', {
+                    userId: this.user.id,
+                })
+                    .then(response => {
+                        this.Usercontrat = response.data.contrat
+                    })
 
             }
-
-
         }
 
     }
